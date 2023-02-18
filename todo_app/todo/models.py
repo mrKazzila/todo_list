@@ -1,5 +1,5 @@
+from django.contrib.auth.models import User
 from django.db import models
-from users.models import User
 
 
 class Todo(models.Model):
@@ -11,5 +11,4 @@ class Todo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.user=} | {self.title=}'
-
+        return f'{self.title=}'
