@@ -4,6 +4,6 @@ from todo.models import Todo
 
 
 @admin.register(Todo)
-class UserAdmin(admin.ModelAdmin):
+class TodoAdmin(admin.ModelAdmin):
     list_display = ('user', 'title', 'important', 'memo', 'date_completed',)
     readonly_fields = ('created', )
