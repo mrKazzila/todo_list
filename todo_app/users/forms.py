@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm,
                                        UserCreationForm)
-
-from users.models import User
+# from users.models import User
+from django.contrib.auth.models import User
 
 
 class UserLoginForm(AuthenticationForm):
@@ -84,13 +84,7 @@ class UserProfileForm(UserChangeForm):
             attrs={'class': 'form-control py-4', 'readonly': True},
         ),
     )
-    image = forms.ImageField(
-        widget=forms.FileInput(
-            attrs={'class': 'custom-file-input'},
-        ),
-        required=False,
-    )
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'image', 'email', 'username')
+        fields = ('first_name', 'last_name', 'email', 'username')
