@@ -1,11 +1,11 @@
 # Create your views here.
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 
 from users.forms import UserLoginForm, UserProfileForm, UserRegistrationForm
-from users.models import User
 
 
 class TitleMixin:
