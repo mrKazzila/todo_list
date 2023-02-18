@@ -1,6 +1,6 @@
 from django.urls import path
 
-from todo.views import (TodoView)
+from todo.views import TodoView
 
 app_name = 'todos'
 
