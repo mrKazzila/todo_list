@@ -1,10 +1,12 @@
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView, UpdateView
-
-from users.forms import UserLoginForm, UserProfileForm, UserRegistrationForm
+from django.views.generic.edit import CreateView
 
 
 class TitleMixin:
@@ -18,29 +20,22 @@ class TitleMixin:
 
 class UserLoginView(LoginView):
     template_name = 'users/login.html'
-    form_class = UserLoginForm
+    form_class = AuthenticationForm
 
 
 class UserRegistrationCreateView(TitleMixin, SuccessMessageMixin, CreateView):
     model = User
-    form_class = UserRegistrationForm
+    form_class = UserCreationForm
     template_name = 'users/registration.html'
     title = 'Registration'
     success_message = 'Success registration!'
 
     def get_success_url(self):
-        return reverse_lazy('users:profile', args=(self.object.id,))
+        return reverse_lazy('todos:current')
 
 
-class UserProfileUpdateView(TitleMixin, UpdateView):
-    model = User
-    template_name = 'users/profile.html'
-    form_class = UserProfileForm
-    title = 'You Todos profile'
-
-    def get_success_url(self):
-        return reverse_lazy('users:profile', args=(self.object.id,))
-
-
-class UserLogoutView(LogoutView):
-    template_name = 'users/login.html'
+@login_required
+def user_logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('todos:current')
