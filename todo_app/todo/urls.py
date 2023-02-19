@@ -1,5 +1,6 @@
-from django.urls import path
 from django.contrib.auth.decorators import login_required
+from django.urls import path
+
 from todo.views import (CompletedTodoListView, TodoListView, compete_todo_view,
                         create_todo_view, delete_todo_view, todo_view)
 

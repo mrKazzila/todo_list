@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.generic.base import TemplateView
@@ -5,7 +6,6 @@ from django.views.generic.list import ListView
 
 from todo.forms import TodoCreateForm
 from todo.models import Todo
-from django.contrib.auth.decorators import login_required
 
 
 class IndexView(TemplateView):
