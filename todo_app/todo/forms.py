@@ -7,7 +7,7 @@ from todo.models import Todo
 class TodoCreateForm(ModelForm):
     class Meta:
         model = Todo
-        fields = ('title', 'memo', 'important', )
+        fields = ('title', 'memo', 'important')
 
     title = forms.CharField(
         widget=forms.TextInput(
@@ -19,14 +19,6 @@ class TodoCreateForm(ModelForm):
             attrs={'class': 'form-control py-4'},
         ),
     )
-    # important = forms.BooleanField(
-    #     required=False,
-    #     # widget=forms.ChoiceField(
-    #     #
-    #     #     attrs={'class': 'form-control py-4'},
-    #     # ),
-    # )
-
-    def save(self, commit=False):
-        new_form = super().save(commit=False)
-        return new_form
+    important = forms.BooleanField(
+        required=False,
+    )
