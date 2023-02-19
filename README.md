@@ -10,7 +10,7 @@
 
 
 <h4 align="center">
-    Todo list. Simple django project.<br>
+    Todo list. Django project.<br>
     <a href="https://stepik.org/course/101042/info" target="_blank">
       Stepik | Django 3 - Full Stack Python website development
     </a>
@@ -33,6 +33,8 @@
 
 ## Features
 * Todo list
+  - Create, Read, Update & Delete your todos
+* Sign Up & Sign In users
 
 
 ## Tech stack
