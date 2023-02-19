@@ -37,7 +37,7 @@ def create_todo_view(request):
 class TodoListView(ListView):
     template_name = 'todo/todos.html'
     queryset = Todo.objects.all()
-    ordering = ('-important',)
+    ordering = ('-created', '-important')
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -60,7 +60,7 @@ def todo_view(request, todo_pk):
             return redirect('todos:current')
         except ValueError:
             form = TodoCreateForm(instance=todo)
-            return render(request, 'todo/viewtodo.html', {'todo': todo, 'form': form, 'error': 'Bad info'})
+            return render(request, 'todo/todo.html', {'todo': todo, 'form': form, 'error': 'Bad info'})
 
 
 @login_required
