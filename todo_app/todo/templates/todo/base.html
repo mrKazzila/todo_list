@@ -28,6 +28,11 @@
                     <a href="{% url 'todos:create' %}">Create new Todo</a>
                     <a href="{% url 'todos:completed' %}">My completed Todo</a>
 
+                <form action="{% url 'users:logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+
                 {% block content %}
                 {% endblock %}
 
