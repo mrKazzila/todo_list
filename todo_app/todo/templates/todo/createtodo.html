@@ -1,48 +1,46 @@
+{% extends 'todo/base.html' %}
 
-<!--<h1>Create Todo</h1>-->
-
-<!DOCTYPE html>
-<html lang="en">
+{% block content %}
+{{ error }}
 <head>
     <meta charset="UTF-8">
     <title>Create Todo</title>
 </head>
 <body>
-<h1>Create Todo</h1>
-<div class="card-body">
-    <form method="POST">
-        {% csrf_token %}
-        <div class="form-row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="small mb-1" for="{{ form.title.id_for_label }}">
-                        Title
-                    </label>
-                    {{ form.title }}
+    <h1>Create Todo</h1>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="small mb-1" for="{{ form.title.id_for_label }}">
+                            Title
+                        </label>
+                        {{ form.title }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="small mb-1" for="{{ form.memo.id_for_label }}">
+                            Memo
+                        </label>
+                        {{ form.memo }}
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="small mb-1" for="{{ form.memo.id_for_label }}">
-                        Memo
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label class="small mb-1" for="{{ form.important.id_for_label }}">
+                        Important
                     </label>
-                    {{ form.memo }}
+                    {{ form.important }}
                 </div>
             </div>
-        </div>
-<!--        <div class="form-row">-->
-<!--            <div class="col-md-6">-->
-<!--                <label class="small mb-1" for="{{ form.important.id_for_label }}">-->
-<!--                    Important-->
-<!--                </label>-->
-<!--                {{ form.important }}-->
-<!--            </div>-->
-<!--        </div>-->
-        <div class="form-group mt-4 mb-0">
-            <input class="btn btn-primary btn-block" type="submit" value="Create todo">
-        </div>
-    </form>
-</div>
-</div>
+            <div class="form-group mt-4 mb-0">
+                <input class="btn btn-primary btn-block" type="submit" value="Create todo">
+            </div>
+        </form>
+    </div>
 </body>
-</html>
+{% endblock %}
