@@ -5,12 +5,14 @@ from django.views.generic.list import ListView
 
 from todo.forms import TodoCreateForm
 from todo.models import Todo
+from django.contrib.auth.decorators import login_required
 
 
 class IndexView(TemplateView):
     template_name = 'todo/index.html'
 
 
+@login_required
 def create_todo_view(request):
     if request.method == 'GET':
         return render(request, 'todo/createtodo.html', {'form': TodoCreateForm()})
@@ -45,6 +47,7 @@ class TodoListView(ListView):
         )
 
 
+@login_required
 def todo_view(request, todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'GET':
@@ -60,6 +63,7 @@ def todo_view(request, todo_pk):
             return render(request, 'todo/viewtodo.html', {'todo': todo, 'form': form, 'error': 'Bad info'})
 
 
+@login_required
 def compete_todo_view(request, todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'POST':
@@ -68,6 +72,7 @@ def compete_todo_view(request, todo_pk):
         return redirect('todos:current')
 
 
+@login_required
 def delete_todo_view(request, todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'POST':
