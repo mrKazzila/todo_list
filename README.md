@@ -70,7 +70,7 @@ poetry shell
 
 5. Install dependencies
 ```bash
-poetry install
+poetry install --no-dev
 ```
 
 6. Go into the working dir
