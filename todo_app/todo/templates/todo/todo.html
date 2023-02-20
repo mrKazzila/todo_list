@@ -29,8 +29,12 @@
                            id="important" {% if todo.important %}checked{% endif %}>
                     <label class="form-check-label" for="important">Important</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-success" onclick="$('#complete').click()">Complete</button>
+
+                {% if todo.date_completed is None %}
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-success" onclick="$('#complete').click()">Complete</button>
+                {% endif %}
+
                 <button type="button" class="btn btn-danger" onclick="$('#delete').click()">Delete</button>
             </form>
         </div>
