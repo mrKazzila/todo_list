@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="https://stepik.org/course/101042/info">
-    <img src="readme/stepik.jpeg"
+    <img src="readme/stepik.svg"
     alt="Stepik" width="200">
   </a>
   <br>
@@ -10,9 +10,9 @@
 
 
 <h4 align="center">
-    Todo list. Django project.<br>
+    Django project<br>
     <a href="https://stepik.org/course/101042/info" target="_blank">
-      Stepik | Django 3 - Full Stack Python website development
+      Django 3 - Full Stack Python website development
     </a>
 </h4>
 
