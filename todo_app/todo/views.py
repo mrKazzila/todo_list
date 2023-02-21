@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect, render
-from django.utils import timezone
+from django.shortcuts import get_object_or_404
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
 from todo.forms import TodoCreateForm
 from todo.models import Todo
+from todo.todo_services import (complete_todo, create_todo, delete_todo,
+                                get_task_list, get_todo)
 
 
 class IndexView(TemplateView):
@@ -14,24 +15,16 @@ class IndexView(TemplateView):
 
 @login_required
 def create_todo_view(request):
-    if request.method == 'GET':
-        return render(request, 'todo/createtodo.html', {'form': TodoCreateForm()})
-    else:
-        try:
-            form = TodoCreateForm(request.POST)
-            new_todo = form.save(commit=False)
-            new_todo.user = request.user
-            new_todo.save()
-            return redirect('todos:current')
-        except ValueError as e:
-            return render(
-                request,
-                'todo/createtodo.html',
-                {
-                    'form': TodoCreateForm(),
-                    'error': f'Bad date: {e}',
-                },
-            )
+    template_name = 'todo/createtodo.html'
+    form = TodoCreateForm()
+    redirect_url = 'todos:current'
+
+    return create_todo(
+        request=request,
+        template=template_name,
+        redirect_to=redirect_url,
+        form=form,
+    )
 
 
 class TodoListView(ListView):
@@ -40,44 +33,11 @@ class TodoListView(ListView):
     ordering = ('-created', '-important')
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(
+        return get_task_list(
+            queryset=super().get_queryset(),
             user=self.request.user,
-            date_completed__isnull=True,
+            is_completed=True,
         )
-
-
-@login_required
-def todo_view(request, todo_pk):
-    todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
-    if request.method == 'GET':
-        form = TodoCreateForm(instance=todo)
-        return render(request, 'todo/todo.html', {'todo': todo, 'form': form})
-    else:
-        try:
-            form = TodoCreateForm(request.POST, instance=todo)
-            form.save()
-            return redirect('todos:current')
-        except ValueError:
-            form = TodoCreateForm(instance=todo)
-            return render(request, 'todo/todo.html', {'todo': todo, 'form': form, 'error': 'Bad info'})
-
-
-@login_required
-def compete_todo_view(request, todo_pk):
-    todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
-    if request.method == 'POST':
-        todo.date_completed = timezone.now()
-        todo.save()
-        return redirect('todos:current')
-
-
-@login_required
-def delete_todo_view(request, todo_pk):
-    todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
-    if request.method == 'POST':
-        todo.delete()
-        return redirect('todos:current')
 
 
 class CompletedTodoListView(ListView):
@@ -86,8 +46,36 @@ class CompletedTodoListView(ListView):
     ordering = ('-date_completed', '-important')
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(
+        return get_task_list(
+            queryset=super().get_queryset(),
             user=self.request.user,
-            date_completed__isnull=False,
+            is_completed=False,
         )
+
+
+@login_required
+def todo_view(request, todo_pk):
+    return get_todo(
+        request=request,
+        todo=get_object_or_404(Todo, pk=todo_pk, user=request.user),
+        template='todo/todo.html',
+        redirect_to='todos:current',
+    )
+
+
+@login_required
+def compete_todo_view(request, todo_pk):
+    return complete_todo(
+        todo=get_object_or_404(Todo, pk=todo_pk, user=request.user),
+        request_method=request.method,
+        redirect_to='todos:current',
+    )
+
+
+@login_required
+def delete_todo_view(request, todo_pk):
+    return delete_todo(
+        todo=get_object_or_404(Todo, pk=todo_pk, user=request.user),
+        request_method=request.method,
+        redirect_to='todos:current',
+    )
