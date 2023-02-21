@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="https://stepik.org/course/101042/info">
-    <img src="readme/stepik.svg"
+    <img style="background-color: #1b1116" src="readme/stepik.svg"
     alt="Stepik" width="200">
   </a>
   <br>
