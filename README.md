@@ -78,12 +78,17 @@ poetry install --no-dev
 cd todo_app
 ```
 
-7. Run the app
+7. Apply migrations
+```bash
+python manage.py migrate
+```
+
+8. Run the app
 ```bash
 python manage.py runserver
 ```
 
-8. Open url [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+9. Open url [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
 
 <br>
