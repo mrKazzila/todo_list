@@ -5,6 +5,7 @@ from .forms import TodoCreateForm
 
 
 def get_task_list(queryset, user, is_completed: bool):
+    """Get list with completed todos"""  # skip
     return queryset.filter(
         user=user,
         date_completed__isnull=is_completed,
@@ -12,6 +13,7 @@ def get_task_list(queryset, user, is_completed: bool):
 
 
 def create_todo(request, redirect_to, template, form):
+    """Create todo"""  # skip
     render_data = {'form': form}
     if request.method == 'GET':
         return render(request, template, render_data)
@@ -24,6 +26,7 @@ def create_todo(request, redirect_to, template, form):
 
 
 def _save_todo(request, redirect_to):
+    """Save todo"""  # skip
     form = TodoCreateForm(request.POST)
     new_todo = form.save(commit=False)
     new_todo.user = request.user
@@ -32,6 +35,7 @@ def _save_todo(request, redirect_to):
 
 
 def complete_todo(todo, request_method, redirect_to):
+    """Mark todo as completed"""  # skip
     if request_method == 'POST':
         todo.date_completed = timezone.now()
         todo.save()
@@ -39,12 +43,14 @@ def complete_todo(todo, request_method, redirect_to):
 
 
 def delete_todo(todo, request_method, redirect_to):
+    """Delete todo task"""  # skip
     if request_method == 'POST':
         todo.delete()
         return redirect(redirect_to)
 
 
 def get_todo(request, todo, redirect_to, template):
+    """Delete todo task"""  # skip
     render_data = {'todo': todo, 'form': TodoCreateForm(instance=todo)}
 
     if request.method == 'GET':
@@ -58,6 +64,7 @@ def get_todo(request, todo, redirect_to, template):
 
 
 def _update_open_todo(request, todo, redirect_to):
+    """Update info in open todo"""  # skip
     form = TodoCreateForm(request.POST, instance=todo)
     form.save()
     return redirect(redirect_to)

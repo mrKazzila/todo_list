@@ -10,11 +10,15 @@ from django.views.generic.edit import CreateView
 
 
 class UserLoginView(LoginView):
+    """Login page"""
+
     template_name = 'users/login.html'
     form_class = AuthenticationForm
 
 
 class UserRegistrationCreateView(SuccessMessageMixin, CreateView):
+    """Registration page"""
+
     model = User
     form_class = UserCreationForm
     template_name = 'users/registration.html'
@@ -26,6 +30,7 @@ class UserRegistrationCreateView(SuccessMessageMixin, CreateView):
 
 @login_required
 def user_logout_view(request):
+    """Logout page"""
     if request.method == 'POST':
         logout(request)
         return redirect('todos:current')
