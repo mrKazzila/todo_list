@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.utils import timezone
 
-from todo.forms import TodoCreateForm
+from .forms import TodoCreateForm
 
 
 def get_task_list(queryset, user, is_completed: bool):

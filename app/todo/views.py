@@ -3,10 +3,9 @@ from django.shortcuts import get_object_or_404
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
-from todo.forms import TodoCreateForm
-from todo.models import Todo
-from todo.todo_services import (complete_todo, create_todo, delete_todo,
-                                get_task_list, get_todo)
+from .forms import TodoCreateForm
+from .models import Todo
+from .todo_services import complete_todo, create_todo, delete_todo, get_task_list, get_todo
 
 
 class IndexView(TemplateView):
