@@ -3,6 +3,8 @@ from django.db import models
 
 
 class Todo(models.Model):
+    """Todo"""  # skip
+
     title = models.CharField(max_length=100)
     memo = models.TextField(
         blank=True,
