@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-django = "3.2.6"
+django = "3.2.19"
 python-dotenv = "^1.0.0"
 pillow = "^9.4.0"
 
